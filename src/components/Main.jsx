@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 export default function Main() {
-    const [ingredient,addIngredient] = useState([])
+    const [ingredient,setIngredient] = useState([])
 
 
     const ingredientLists = ingredient.map(ingredient => (
@@ -10,20 +10,16 @@ export default function Main() {
 
     ))
 
-    function handleSubmit(event){
-
-        event.preventDefault()
-        const formData = new FormData(event.currentTarget)
+    function addIngredient(formData){
         const newingredient = formData.get("ingredient")
-        addIngredient(prevIngredient => [...prevIngredient,newingredient])
+        setIngredient(prevIngredient => [...prevIngredient,newingredient])
 
     }
 
-
-
+    
     return (
         <main>
-            <form onSubmit={handleSubmit}className="add-ingredient-form">
+            <form action={addIngredient}className="add-ingredient-form">
                 <input type="text"
                     placeholder="e.g. Omelette"
                     aria-label="Add Ingredient"
