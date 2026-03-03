@@ -1,7 +1,8 @@
 import { useState } from "react"
 
 export default function Main() {
-    const [ingredient,setIngredient] = useState([])
+    const [ingredient,setIngredient] = useState(["all the main spices", "pasta", "ground beef", "tomato paste"])
+    const [recipeShown,setRecipe] = useState(false)
 
 
     const ingredientLists = ingredient.map(ingredient => (
@@ -16,6 +17,10 @@ export default function Main() {
 
     }
 
+    function toggleRecipe(){
+        setRecipe(prev => !prev)
+    }
+
     
     return (
         <main>
@@ -25,7 +30,7 @@ export default function Main() {
                     aria-label="Add Ingredient"
                     name="ingredient"
                  />
-                 <button>Add Ingredients</button>
+                 <button>Add Ingredient</button>
             </form>
             {ingredient.length > 0 ?
           <section>
@@ -36,11 +41,12 @@ export default function Main() {
                         <h3>Ready for a recipe?</h3>
                         <p>Generate a recipe from your list of ingredients.</p>
                     </div>
-                    <button>Get a recipe</button>
+                    <button onClick={toggleRecipe}>Get a recipe</button>
                 </div>
                 }
             </section> : <h2>No ingredients added yet.</h2>
             }
+            {recipeShown && <h1>Recipe Generator bla bla bla</h1>}
        
         </main>
     )
