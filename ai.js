@@ -1,11 +1,4 @@
-const SYSTEM_PROMPT = `
-You are an assistant that receives a list of ingredients that a user has and suggests a recipe they could make.
-Format your response in markdown.
-`;
-
-export async function getRecipeFromMistral(ingredientsArr) {
-  const ingredientsString = ingredientsArr.join(", ");
-
+export async function getRecipeFromLlama(ingredientsArr) {
   try {
     const response = await fetch("/api/recipe", {
       method: "POST",
@@ -13,11 +6,7 @@ export async function getRecipeFromMistral(ingredientsArr) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt: `
-${SYSTEM_PROMPT}
-I have ${ingredientsString}.
-Please give me a recipe you'd recommend I make!
-                `,
+        ingredients: ingredientsArr,
       }),
     });
 
@@ -28,19 +17,8 @@ Please give me a recipe you'd recommend I make!
     }
 
     const data = await response.json();
-    console.log("HF RESPONSE:", data);
 
-    // ✅ รองรับ chat completion format
-    if (data.choices) {
-      return data.choices[0]?.message?.content || "No response";
-    }
-
-    // ✅ รองรับ text generation format
-    if (Array.isArray(data)) {
-      return data[0]?.generated_text || "No response";
-    }
-
-    return "No response";
+    return data.choices?.[0]?.message?.content || "No response";
   } catch (err) {
     console.error("FETCH ERROR:", err);
     return "Error generating recipe.";

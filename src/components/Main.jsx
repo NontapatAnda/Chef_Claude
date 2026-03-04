@@ -1,7 +1,7 @@
 import { useState } from "react"
 import IngredientsList from "./IngredientsList"
 import ClaudeRecipe from "./ClaudeRecipe"
-import { getRecipeFromMistral } from "../../ai" 
+import { getRecipeFromLlama} from "../../ai" 
 
 export default function Main() {
     const [ingredient,setIngredient] = useState(["all the main spices", "pasta", "ground beef", "tomato paste"])
@@ -16,7 +16,7 @@ export default function Main() {
     }
 
     async function getRecipe(){
-        const generatedRecipe = await getRecipeFromMistral(ingredient)
+        const generatedRecipe = await getRecipeFromLlama(ingredient)
         setRecipe(generatedRecipe)
            
         }
