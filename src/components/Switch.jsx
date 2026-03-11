@@ -7,7 +7,7 @@ const Switch = ({ mode, toggleMode }) => {
       <label className="switch">
         <input
           type="checkbox"
-          checked={mode === "dark"}
+          checked={mode === "light"}
           onChange={toggleMode}
         />
         <span className="slider">
