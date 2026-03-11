@@ -40,7 +40,7 @@ export default function ClaudeRecipe(props) {
                         fontSize: "16px"
                     }}
                 >
-                    ⬇️ Download Recipe
+                    Click To Download Recipe
                 </button>
                 {message && <span style={{ fontSize: "14px", fontWeight: "bold", color: "#333" }}>{message}</span>}
             </div>
