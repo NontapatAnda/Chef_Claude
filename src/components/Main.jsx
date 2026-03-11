@@ -6,6 +6,7 @@ import { getRecipeFromLlama } from "../../ai";
 export default function Main() {
   const [ingredient, setIngredient] = useState([]);
   const [recipe, setRecipe] = useState("");
+  const [loading, setLoading] = useState(false);
 
   function addIngredient(formData) {
     const newingredient = formData.get("ingredient");
@@ -13,8 +14,10 @@ export default function Main() {
   }
 
   async function getRecipe() {
+    setLoading(true);
     const generatedRecipe = await getRecipeFromLlama(ingredient);
     setRecipe(generatedRecipe);
+    setLoading(false);
   }
 
   return (
@@ -32,7 +35,8 @@ export default function Main() {
         <IngredientsList ingredient={ingredient} getRecipe={getRecipe} />
       )}
 
-      {recipe && <ClaudeRecipe recipe={recipe} />}
+      {loading && <div className="loading-state">Generating your recipe</div>}
+      {recipe && !loading && <ClaudeRecipe recipe={recipe} />}
     </main>
   );
 }
